@@ -46,16 +46,16 @@ function AppHeader() {
 
             <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
                 <button className="button" onClick={() => handleNavigation('/')}>
-                    <span className="actual-text">&nbsp;home&nbsp;</span>
-                    <span aria-hidden="true" className="hover-text">&nbsp;home&nbsp;</span>
+                    <span className="actual-text">&nbsp;Accueil&nbsp;</span>
+                    <span aria-hidden="true" className="hover-text">&nbsp;Accueil&nbsp;</span>
                 </button>
-                <button className="button" onClick={() => handleNavigation('/projects')}>
-                    <span className="actual-text">&nbsp;projects&nbsp;</span>
-                    <span aria-hidden="true" className="hover-text">&nbsp;projects&nbsp;</span>
+                <button className="button" onClick={() => handleNavigation('/Inscription')}>
+                    <span className="actual-text">&nbsp;Inscription&nbsp;</span>
+                    <span aria-hidden="true" className="hover-text">&nbsp;Inscription&nbsp;</span>
                 </button>
-                <button className="button" onClick={() => handleNavigation('/about')}>
-                    <span className="actual-text">&nbsp;about&nbsp;</span>
-                    <span aria-hidden="true" className="hover-text">&nbsp;about&nbsp;</span>
+                <button className="button" onClick={() => handleNavigation('/About')}>
+                    <span className="actual-text">&nbsp;À&nbsp;propos&nbsp;</span>
+                    <span aria-hidden="true" className="hover-text">&nbsp;À&nbsp;propos&nbsp;</span>
                 </button>
             </div>
         </div>

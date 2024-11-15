@@ -156,3 +156,8 @@
         z-index: 1000;
     }
 }
+
+.button .actual-text,
+.button .hover-text {
+    white-space: nowrap;
+}

@@ -1,9 +1,9 @@
-import './Home.css';
+import './Accueil.css';
 import { FaBell } from "react-icons/fa";
 
-function Home() {
+function Accueil() {
     return (
-        <div className='home'>
+        <div className='Accueil'>
             <div className='title-container'>
                 <div className='title'>
                     <h1>Welcome</h1>
@@ -23,4 +23,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Accueil;

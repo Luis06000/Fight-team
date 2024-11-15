@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import './App.css';
 import AppHeader from './Header/App-header.js';
 import AppFooter from './Footer/App-footer.js';
-import Home from '../Home/Home.js';
-import Projects from '../Projects/Projects.js';
+import Accueil from '../Accueil/Accueil.js';
+import Inscription from '../Inscription/Inscription.js';
 import About from '../About/About.js';
 import Background from '../../Background/Background.js';
 import Preloader from '../Loader/Preloader.js';
@@ -32,18 +32,18 @@ function App() {
   }, []);
 
   return (
-    <Router basename="/My-portfolio">
+    <Router basename="/cesi-ft">
       <Preloader load={load} />
       <div className="App" id={load ? "no-scroll" : "scroll"}>
         <Background />
         <AppHeader />
         <ScrollToTop />
         <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/about" element={<About />} />
-        <Route path="*" element={<Home />} />
+        <Route path="/" element={<Accueil />} />
+        <Route path="/Accueil" element={<Accueil />} />
+        <Route path="/Inscription" element={<Inscription />} />
+        <Route path="/About" element={<About />} />
+        <Route path="*" element={<Accueil />} />
         </Routes>
         <AppFooter />
       </div>

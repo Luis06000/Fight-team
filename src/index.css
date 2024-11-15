@@ -19,7 +19,7 @@ code {
     min-height: 100vh;
 }
 
-.home, .about, .projects {
+.Accueil, .About, .Inscription {
     flex: 1;
     margin-bottom: 2em;
 }
@@ -29,7 +29,7 @@ code {
     font-size: 14px;
   }
   
-  .home, .about, .projects {
+  .Accueil, .About, .Inscription {
     margin-bottom: 1em;
     padding: 0 1em;
   }

@@ -1,12 +1,12 @@
-import './Projects.css';
+import './Inscription.css';
 
-function Projects() {
+function Inscription() {
 
     return (
-        <div className='projects'>
+        <div className='Inscription'>
             <div className='title-container'>
                 <div className='title'>
-                    <h1>Our Projects</h1>
+                    <h1>Inscription</h1>
                     <span className="emoji">💻</span>
                 </div>
             </div>
@@ -14,4 +14,4 @@ function Projects() {
     );
 }
 
-export default Projects;
+export default Inscription;

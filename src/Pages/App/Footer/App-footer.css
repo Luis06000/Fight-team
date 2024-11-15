@@ -15,7 +15,7 @@ footer {
   .footer {
     display: flex;
     height: 3em;
-    width: 15em;
+    width: 11em;
     gap: 1em;
     margin: 0 auto;
   }
@@ -34,7 +34,7 @@ footer {
     cursor: pointer;
   }
   
-  .footer .instagram,.footer .github,.footer .discord,.footer .linkedin {
+  .footer .instagram,.footer .github,.footer .discord {
     position: relative;
     display: flex;
     align-items: center;
@@ -67,11 +67,6 @@ footer {
   
   .footer .discord:hover {
     background-color: #5865f2;
-    animation: bounce_613 0.4s linear;
-  }
-  
-  .footer .linkedin:hover {
-    background-color: #0a66c2;
     animation: bounce_613 0.4s linear;
   }
   
