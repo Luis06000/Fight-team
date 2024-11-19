@@ -11,7 +11,7 @@
 }
 
 .App-header.scrolled {
-    background: rgba(25, 26, 26, 0.8);
+    background: #ff99003b;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
