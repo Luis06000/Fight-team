@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/cesi-ft/static/css/main.4424b6c5.css",
+    "main.js": "/cesi-ft/static/js/main.9bf46528.js",
+    "static/js/453.e282ba56.chunk.js": "/cesi-ft/static/js/453.e282ba56.chunk.js",
+    "static/media/Loader.svg": "/cesi-ft/static/media/Loader.223eb1b3d75526882604.svg",
+    "index.html": "/cesi-ft/index.html",
+    "main.4424b6c5.css.map": "/cesi-ft/static/css/main.4424b6c5.css.map",
+    "main.9bf46528.js.map": "/cesi-ft/static/js/main.9bf46528.js.map",
+    "453.e282ba56.chunk.js.map": "/cesi-ft/static/js/453.e282ba56.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4424b6c5.css",
+    "static/js/main.9bf46528.js"
+  ]
+}
