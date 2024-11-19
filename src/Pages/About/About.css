@@ -125,3 +125,30 @@
     font-size: 24px;
   }
 }
+
+.about-content {
+  margin: 0 5em;
+  font-size: 1.1em;
+  color: #333;
+  line-height: 1.6;
+}
+
+.about-content p {
+  margin-bottom: 1.5em;
+}
+
+@media screen and (max-width: 768px) {
+  .title-container {
+    margin-left: 1em;
+    margin-top: 2em;
+    margin-bottom: 3em;
+  }
+
+  .title h1 {
+    font-size: 24px;
+  }
+
+  .about-content {
+    margin: 0 1em;
+  }
+}
