@@ -32,7 +32,7 @@ function App() {
   }, []);
 
   return (
-    <Router basename="/Figth-Team">
+    <Router basename="/Figth-team">
       <Preloader load={load} />
       <div className="App" id={load ? "no-scroll" : "scroll"}>
         <Background />
