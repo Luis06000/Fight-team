@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Fight-team/static/css/main.16a75924.css",
-    "main.js": "/Fight-team/static/js/main.10a5d3dc.js",
-    "static/js/453.df63d607.chunk.js": "/Fight-team/static/js/453.df63d607.chunk.js",
+    "main.js": "/Fight-team/static/js/main.9518b2b5.js",
+    "static/js/453.4a653ca8.chunk.js": "/Fight-team/static/js/453.4a653ca8.chunk.js",
     "static/media/Loader.svg": "/Fight-team/static/media/Loader.223eb1b3d75526882604.svg",
     "index.html": "/Fight-team/index.html",
     "main.16a75924.css.map": "/Fight-team/static/css/main.16a75924.css.map",
-    "main.10a5d3dc.js.map": "/Fight-team/static/js/main.10a5d3dc.js.map",
-    "453.df63d607.chunk.js.map": "/Fight-team/static/js/453.df63d607.chunk.js.map"
+    "main.9518b2b5.js.map": "/Fight-team/static/js/main.9518b2b5.js.map",
+    "453.4a653ca8.chunk.js.map": "/Fight-team/static/js/453.4a653ca8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.16a75924.css",
-    "static/js/main.10a5d3dc.js"
+    "static/js/main.9518b2b5.js"
   ]
 }
