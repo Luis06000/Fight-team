@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Fight-team/static/css/main.16a75924.css",
-    "main.js": "/Fight-team/static/js/main.936019c7.js",
+    "main.js": "/Fight-team/static/js/main.ee045d5b.js",
     "static/js/453.4a653ca8.chunk.js": "/Fight-team/static/js/453.4a653ca8.chunk.js",
     "static/media/Loader.svg": "/Fight-team/static/media/Loader.223eb1b3d75526882604.svg",
     "index.html": "/Fight-team/index.html",
     "main.16a75924.css.map": "/Fight-team/static/css/main.16a75924.css.map",
-    "main.936019c7.js.map": "/Fight-team/static/js/main.936019c7.js.map",
+    "main.ee045d5b.js.map": "/Fight-team/static/js/main.ee045d5b.js.map",
     "453.4a653ca8.chunk.js.map": "/Fight-team/static/js/453.4a653ca8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.16a75924.css",
-    "static/js/main.936019c7.js"
+    "static/js/main.ee045d5b.js"
   ]
 }
