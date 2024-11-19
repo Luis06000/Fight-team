@@ -6,7 +6,7 @@ function About() {
             <div className='title-container'>
                 <div className='title'>
                     <h1>À propos</h1>
-                    <span className="emoji">👨‍💻</span>
+                    <span className="emoji"> ℹ️ </span>
                 </div>
             </div>
             <div className='about-content'>

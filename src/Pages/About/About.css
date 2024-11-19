@@ -6,7 +6,7 @@
 .title-container {
   margin-left: 5em;
   margin-top: 3.4em;
-  margin-bottom: 5em;
+  margin-bottom: 2em;
 }
 
 .title {
@@ -30,11 +30,19 @@
   width: 0;
 }
 
-.title .emoji {
+.About .title .emoji {
   font-size: 40px;
+  margin-top: 5%;
   visibility: hidden;
-  margin-left: 10px;
-  animation: showEmoji3 0.1s ease-in 2s forwards;
+  background-color: rgb(33, 69, 230);
+  color: white;
+  border-radius: 10px;
+  padding: 0.4em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
 }
 
 @keyframes typewriter3 {
@@ -52,46 +60,6 @@
     visibility: visible;
     transform: translateY(0);
   }
-}
-
-.CV-btn {
-  text-decoration: none;
-  color: #fff;
-  display: inline-block;
-  font-family: sans-serif;
-  font-weight: 600;
-  border-radius: 50px;
-  border: 2px solid #13c16a;
-  padding: 14px 40px 13px;
-  overflow: hidden;
-  position: relative;
-  margin-left: 5em;
-}
-
-.CV-btn:hover {
-  color: #13c16a;
-}
-
-.CV a::before {
-  position: absolute;
-  content: "";
-  z-index: 0;
-  background-color: #13c16a;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  height: 111%;
-  transition: all .3s ease;
-}
-
-.CV a:hover::before {
-  height: 11%;
-}
-
-.CV span {
-  position: relative;
-  z-index: 2;
-  transition: all .3s ease;
 }
 
 @media screen and (max-width: 1200px) {
@@ -131,10 +99,36 @@
   font-size: 1.1em;
   color: #333;
   line-height: 1.6;
+  padding: 1.5em;
 }
 
 .about-content p {
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
+  text-align: justify;
+}
+
+.about-content p:last-child {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .title-container {
+    margin-left: 3em;
+  }
+  
+  .title h1, .title .emoji {
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .title-container {
+    margin-left: 2em;
+  }
+  
+  .title h1, .title .emoji {
+    font-size: 30px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -143,8 +137,8 @@
     margin-top: 2em;
     margin-bottom: 3em;
   }
-
-  .title h1 {
+  
+  .title h1, .title .emoji {
     font-size: 24px;
   }
 

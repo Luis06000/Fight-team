@@ -6,8 +6,8 @@ function Accueil() {
         <div className='Accueil'>
             <div className='title-container'>
                 <div className='title'>
-                    <h1>Welcome</h1>
-                    <span className="emoji">✌️</span>
+                    <h1>Bienvenue</h1>
+                    <span className="emoji">👋</span>
                 </div>
             </div>
             <div className='content-wrapper'>
@@ -16,7 +16,7 @@ function Accueil() {
                         <FaBell />
                     </div>
                     <div className="separator"></div>
-                    <p>Hello.</p>
+                    <p>Les inscriptions sont d'ores et déjà ouvertes, nous prendrons contact avec vous d'ici peu !</p>
                 </div>
             </div>
         </div>
