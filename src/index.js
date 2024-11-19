@@ -1,18 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Router, createBrowserHistory } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './Pages/App/App';
 import reportWebVitals from './reportWebVitals';
 
-const history = createBrowserHistory();
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router history={history} futureFlags={{ v7_startTransition: true }}>
+    <BrowserRouter>
       <App />
-    </Router>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
