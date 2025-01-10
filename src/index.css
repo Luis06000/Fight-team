@@ -34,3 +34,7 @@ code {
     padding: 0 1em;
   }
 }
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
