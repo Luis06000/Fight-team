@@ -32,18 +32,18 @@ function App() {
   }, []);
 
   return (
-    <Router basename="/Fight-team">
+    <Router basename={process.env.PUBLIC_URL}>
       <Preloader load={load} />
       <div className="App" id={load ? "no-scroll" : "scroll"}>
         <Background />
         <AppHeader />
         <ScrollToTop />
         <Routes>
-        <Route path="/" element={<Accueil />} />
-        <Route path="/Accueil" element={<Accueil />} />
-        <Route path="/Inscription" element={<Inscription />} />
-        <Route path="/About" element={<About />} />
-        <Route path="*" element={<Accueil />} />
+          <Route path="/" element={<Accueil />} />
+          <Route path="/Accueil" element={<Accueil />} />
+          <Route path="/Inscription" element={<Inscription />} />
+          <Route path="/About" element={<About />} />
+          <Route path="*" element={<Accueil />} />
         </Routes>
         <AppFooter />
       </div>

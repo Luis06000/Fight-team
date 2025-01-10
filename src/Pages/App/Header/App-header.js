@@ -1,5 +1,5 @@
 import './App-header.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 function AppHeader() {
@@ -45,18 +45,18 @@ function AppHeader() {
             </button>
 
             <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-                <button className="button" onClick={() => handleNavigation('/')}>
+                <Link className="button" to="/">
                     <span className="actual-text">&nbsp;Accueil&nbsp;</span>
                     <span aria-hidden="true" className="hover-text">&nbsp;Accueil&nbsp;</span>
-                </button>
-                <button className="button" onClick={() => handleNavigation('/Inscription')}>
+                </Link>
+                <Link className="button" to="/Inscription">
                     <span className="actual-text">&nbsp;Inscription&nbsp;</span>
                     <span aria-hidden="true" className="hover-text">&nbsp;Inscription&nbsp;</span>
-                </button>
-                <button className="button" onClick={() => handleNavigation('/About')}>
+                </Link>
+                <Link className="button" to="/About">
                     <span className="actual-text">&nbsp;À&nbsp;propos&nbsp;</span>
                     <span aria-hidden="true" className="hover-text">&nbsp;À&nbsp;propos&nbsp;</span>
-                </button>
+                </Link>
             </div>
         </div>
     );
