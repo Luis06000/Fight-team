@@ -6,7 +6,6 @@ import AppFooter from './Footer/App-footer.js';
 import Accueil from '../Accueil/Accueil.js';
 import Inscription from '../Inscription/Inscription.js';
 import About from '../About/About.js';
-import Background from '../../Background/Background.js';
 import Preloader from '../Loader/Preloader.js';
 
 
@@ -35,7 +34,6 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <Preloader load={load} />
       <div className="App" id={load ? "no-scroll" : "scroll"}>
-        <Background />
         <AppHeader />
         <ScrollToTop />
         <Routes>
