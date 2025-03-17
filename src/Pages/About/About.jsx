@@ -1,15 +1,13 @@
+import React from 'react';
+import PageTitle from '../../components/common/PageTitle/PageTitle';
 import './About.css';
 
-function About() {
+const About = () => {
     return (
-        <div className="About">
-            <div className='title-container'>
-                <div className='title'>
-                    <h1>À propos</h1>
-                    <span className="emoji"> ℹ️ </span>
-                </div>
-            </div>
-            <div className='about-content'>
+        <div className="about-page">
+            <PageTitle title="À propos" emoji="ℹ️" />
+            
+            <div className="about-content">
                 <p>
                     Nous sommes une équipe passionnée dédiée à la création d'une communauté sportive dynamique au sein du CESI. 
                     Notre objectif principal est de fonder une équipe sportive de sports de combat, proposant des séances d'initiation aux arts martiaux pour les étudiants.
@@ -29,6 +27,6 @@ function About() {
             </div>
         </div>
     );
-}
+};
 
 export default About;

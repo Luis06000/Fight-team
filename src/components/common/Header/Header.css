@@ -1,0 +1,139 @@
+.header {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 10px 0;
+  transition: all 0.3s ease;
+}
+
+.header.scrolled {
+  background: rgba(255, 153, 0, 0.23);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.nav-links {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.nav-button {
+  margin: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  --border-right: 6px;
+  --text-stroke-color: rgba(204, 122, 0, 0.6);
+  --animation-color: #ff9900;
+  --fs-size: 2em;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: var(--fs-size);
+  font-family: "Arial";
+  position: relative;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+}
+
+.hover-text {
+  position: absolute;
+  box-sizing: border-box;
+  content: attr(data-text);
+  color: var(--animation-color);
+  width: 0%;
+  inset: 0;
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  transition: 0.5s;
+  -webkit-text-stroke: 1px var(--animation-color);
+}
+
+.nav-button:hover .hover-text {
+  width: 100%;
+  filter: drop-shadow(0 0 23px var(--animation-color));
+}
+
+.hamburger {
+  display: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 153, 0, 0.1);
+  border: 2px solid #ff9900;
+  cursor: pointer;
+  position: absolute;
+  left: 10px;
+  margin: 10px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: #ff9900;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+}
+
+.hamburger span:nth-child(1) { top: 15px; }
+.hamburger span:nth-child(2) { top: 23px; }
+.hamburger span:nth-child(3) { top: 31px; }
+
+.hamburger.active span:nth-child(1) {
+  transform: translateX(-50%) rotate(45deg);
+  top: 23px;
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateX(-50%) rotate(-45deg);
+  top: 23px;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    justify-content: flex-start;
+    padding-left: 0;
+  }
+
+  .hamburger {
+    display: block;
+    position: relative;
+    left: 0;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(248, 223, 140, 0.95);
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+    transition: 0.3s ease;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-button {
+    --fs-size: 1.5em;
+  }
+} 

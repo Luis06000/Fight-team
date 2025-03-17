@@ -1,4 +1,4 @@
-import './Preloader.css';
+import '../../../assets/Loader.svg';
 import React from "react";
 
 function Pre(props) {

@@ -1,0 +1,41 @@
+.title-container {
+  margin: 2rem 0;
+  padding: 0 2rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0;
+}
+
+.emoji {
+  font-size: 2.5rem;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media screen and (max-width: 768px) {
+  .title-container {
+    margin: 1.5rem 0;
+    padding: 0 1rem;
+  }
+
+  .title h1 {
+    font-size: 2rem;
+  }
+
+  .emoji {
+    font-size: 2rem;
+  }
+} 
