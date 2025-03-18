@@ -3,22 +3,116 @@
 }
 
 .about-content {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 2rem auto;
+  padding: 2rem;
+}
+
+.mission-section {
+  text-align: center;
+  margin-bottom: 4rem;
   padding: 2rem;
   background: rgba(255, 153, 0, 0.1);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.about-content p {
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-  color: #333;
+.highlight-text {
+  font-size: 1.5rem;
+  color: #ff9900;
+  font-weight: 500;
+  margin: 1rem 0;
 }
 
-.about-content p:last-child {
-  margin-bottom: 0;
+.values-section {
+  margin-bottom: 4rem;
+}
+
+.values-section h2,
+.objectives-section h2,
+.join-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.value-card {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+}
+
+.value-icon {
+  font-size: 2.5rem;
+  color: #ff9900;
+  margin-bottom: 1rem;
+}
+
+.value-card h3 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.value-card p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.objectives-section {
+  margin-bottom: 4rem;
+}
+
+.objectives-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.objective-item {
+  padding: 2rem;
+  background: rgba(255, 153, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.objective-item h3 {
+  color: #ff9900;
+  margin-bottom: 1rem;
+}
+
+.objective-item p {
+  color: #333;
+  line-height: 1.6;
+}
+
+.join-section {
+  text-align: center;
+  padding: 3rem;
+  background: linear-gradient(135deg, rgba(255, 153, 0, 0.1) 0%, rgba(255, 153, 0, 0.2) 100%);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.join-section p {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: #333;
 }
 
 @media screen and (max-width: 768px) {
@@ -27,12 +121,33 @@
   }
 
   .about-content {
-    padding: 1.5rem;
-    margin: 1rem auto;
+    padding: 1rem;
   }
 
-  .about-content p {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .objectives-list {
+    grid-template-columns: 1fr;
+  }
+
+  .highlight-text {
+    font-size: 1.2rem;
+  }
+
+  .value-card,
+  .objective-item {
+    padding: 1.5rem;
+  }
+
+  .join-section {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .values-grid {
+    grid-template-columns: 1fr;
   }
 } 
