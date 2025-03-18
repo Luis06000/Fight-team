@@ -82,6 +82,164 @@
   color: #721c24;
 }
 
+.form-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 153, 0, 0.2);
+}
+
+.form-section h3 {
+  color: #ff9900;
+  margin-bottom: 0.5rem;
+}
+
+.form-section p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: normal;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 153, 0, 0.3);
+  border-radius: 8px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #ff9900;
+  box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.2);
+}
+
+.steps-indicator {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.step {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  position: relative;
+}
+
+.step::after {
+  content: '';
+  position: absolute;
+  width: 2rem;
+  height: 2px;
+  background: #f0f0f0;
+  right: -2rem;
+}
+
+.step:last-child::after {
+  display: none;
+}
+
+.step.active {
+  background: #ff9900;
+  color: white;
+}
+
+.step.completed {
+  background: #4BB543;
+  color: white;
+}
+
+.step.completed::after {
+  background: #4BB543;
+}
+
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.form-nav-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-nav-button.prev {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.form-nav-button.next {
+  background: #ff9900;
+  color: white;
+}
+
+.form-nav-button:hover {
+  opacity: 0.9;
+}
+
+.form-submit-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  background: #ff9900;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.form-submit-button:hover {
+  opacity: 0.9;
+}
+
+.form-submit-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.required-star {
+  color: #ff4444;
+  margin-left: 4px;
+}
+
 @media screen and (max-width: 768px) {
   .registration-page {
     padding: 1rem;
@@ -96,4 +254,54 @@
     padding: 0.8rem;
     font-size: 1rem;
   }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .checkbox-group {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-indicator {
+    gap: 1rem;
+  }
+
+  .step::after {
+    width: 1rem;
+    right: -1rem;
+  }
+
+  .form-navigation {
+    flex-direction: column;
+  }
+
+  .form-nav-button,
+  .form-submit-button {
+    width: 100%;
+  }
+}
+
+.error-message {
+  color: #ff4444;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  min-height: 1rem;
+  display: block;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+input:invalid, textarea:invalid {
+  border-color: #ff4444;
+}
+
+input:focus:invalid, textarea:focus:invalid {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.2);
 } 
