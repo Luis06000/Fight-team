@@ -1,10 +1,10 @@
 import emailjs from 'emailjs-com';
 
 // Initialiser EmailJS
-emailjs.init('p_iVuB_xWxIJj-eY0');
+emailjs.init(process.env.EMAILJS_USER_ID);
 
 export const sendRegistration = async (formData) => {
-  const webhookURL = 'https://discord.com/api/webhooks/1295433379780755547/JLjadxLQK0FjOLl_a6FjOdRcRI_NWgJQETnb0nEgtsXhTa0MbEE9dULrDjtee9B1Mnu_';
+  const webhookURL = process.env.DISCORD_WEBHOOK_URL;
 
   const message = {
     content: `Nouvelle inscription:\nNom: ${formData.lastName}\nPrénom: ${formData.firstName}\nEmail: ${formData.email}\nMotivation: ${formData.motivation}\nDate de naissance: ${formData.birthDate}`
@@ -25,8 +25,8 @@ export const sendRegistration = async (formData) => {
 
   // Envoyer l'email
   const emailResponse = await emailjs.send(
-    'service_knzqf1l', 
-    'template_og0qfap', 
+    process.env.EMAILJS_SERVICE_ID, 
+    process.env.EMAILJS_TEMPLATE_ID, 
     formData
   );
 
