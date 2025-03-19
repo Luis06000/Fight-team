@@ -20,9 +20,9 @@ const Footer = () => {
 
         <div className="footer-section">
           <h3>Contact</h3>
-          <a href="mailto:contact@cesifightteam.com" className="contact-link">
+          <a href="mailto:fightteam.contact06@gmail.com" className="contact-link">
             <FaEnvelope />
-            <span>contact@cesifightteam.com</span>
+            <span>fightteam.contact06@gmail.com</span>
           </a>
         </div>
 
