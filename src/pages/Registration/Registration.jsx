@@ -89,6 +89,7 @@ const Registration = () => {
   const nextStep = () => {
     if (validateStep(currentStep)) {
       setCurrentStep(prev => prev + 1);
+      document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
     } else {
       alert('Veuillez remplir tous les champs obligatoires avant de continuer.');
     }
@@ -96,38 +97,42 @@ const Registration = () => {
 
   const prevStep = () => {
     setCurrentStep(prev => prev - 1);
+    document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const resetForm = () => {
+    setFormData({
+      firstName: '',
+      lastName: '',
+      birthDate: '',
+      email: '',
+      phone: '',
+      address: '',
+      postalCode: '',
+      city: '',
+      membershipType: 'adherent',
+      skills: '',
+      availability: [],
+      motivation: ''
+    });
+    setCurrentStep(1);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateStep(currentStep)) {
-      setIsSubmitting(true);
-    
-      try {
-        await sendRegistration(formData);
-        setSubmitStatus('success');
-        setFormData({
-          firstName: '',
-          lastName: '',
-          birthDate: '',
-          email: '',
-          phone: '',
-          address: '',
-          postalCode: '',
-          city: '',
-          membershipType: 'adherent',
-          skills: '',
-          availability: [],
-          motivation: ''
-        });
-      } catch (error) {
-        setSubmitStatus('error');
-        console.error('Erreur lors de l\'envoi du formulaire:', error);
-      } finally {
-        setIsSubmitting(false);
-      }
-    } else {
-      alert('Veuillez remplir tous les champs obligatoires avant de soumettre.');
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      await sendRegistration(formData);
+      setSubmitStatus('success');
+      resetForm();
+      document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du formulaire:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -272,13 +277,15 @@ const Registration = () => {
 
         {submitStatus === 'success' && (
           <div className="alert success">
-            Données envoyées avec succès !
+            <p>✅ Votre demande d'adhésion a été envoyée avec succès !</p>
+            <p>Nous vous contacterons très prochainement.</p>
           </div>
         )}
         
         {submitStatus === 'error' && (
           <div className="alert error">
-            Problème lors de l'envoi des données. Veuillez réessayer.
+            <p>❌ Une erreur est survenue lors de l'envoi.</p>
+            <p>Veuillez réessayer ou nous contacter directement.</p>
           </div>
         )}
         
@@ -286,34 +293,38 @@ const Registration = () => {
           {renderStep()}
           
           <div className="form-navigation">
-            {currentStep > 1 && (
-              <button
-                type="button"
-                onClick={prevStep}
-                className="form-nav-button prev"
-              >
-                Précédent
-              </button>
-            )}
+            <div className="nav-left">
+              {currentStep > 1 && (
+                <button
+                  type="button"
+                  onClick={prevStep}
+                  className="form-nav-button prev"
+                >
+                  Précédent
+                </button>
+              )}
+            </div>
             
-            {currentStep < 3 ? (
-              <button
-                type="button"
-                onClick={nextStep}
-                className="form-nav-button next"
-                disabled={!validateStep(currentStep)}
-              >
-                Suivant
-              </button>
-            ) : (
-              <button 
-                type="submit"
-                disabled={isSubmitting || !validateStep(currentStep)}
-                className="form-submit-button"
-              >
-                {isSubmitting ? 'Envoi en cours...' : 'Envoyer ma demande d\'adhésion'}
-              </button>
-            )}
+            <div className="nav-right">
+              {currentStep < 3 ? (
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  className="form-nav-button next"
+                  disabled={!validateStep(currentStep)}
+                >
+                  Suivant
+                </button>
+              ) : (
+                <button 
+                  type="submit"
+                  disabled={isSubmitting || !validateStep(currentStep)}
+                  className="form-submit-button"
+                >
+                  {isSubmitting ? 'Envoi en cours...' : 'Envoyer ma demande d\'adhésion'}
+                </button>
+              )}
+            </div>
           </div>
         </form>
       </div>
