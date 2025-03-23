@@ -1,10 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaInstagram, FaGithub, FaDiscord, FaEnvelope } from 'react-icons/fa';
+import { useAuth } from '../../../contexts/AuthContext';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../../firebase';
+import { useState, useEffect } from 'react';
 import './Footer.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { currentUser } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Vérifier si l'utilisateur est un administrateur
+  useEffect(() => {
+    async function checkAdminStatus() {
+      if (!currentUser) {
+        setIsAdmin(false);
+        return;
+      }
+
+      try {
+        const userRef = doc(db, 'users', currentUser.uid);
+        const userDoc = await getDoc(userRef);
+
+        if (userDoc.exists() && userDoc.data().role === 'admin') {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la vérification des droits d'admin:", error);
+        setIsAdmin(false);
+      }
+    }
+
+    checkAdminStatus();
+  }, [currentUser]);
 
   return (
     <footer className="footer">
@@ -13,8 +45,10 @@ const Footer = () => {
           <h3>Plan du site</h3>
           <nav className="footer-nav">
             <Link to="/">Accueil</Link>
+            {currentUser && <Link to="/cours">Cours</Link>}
             <Link to="/inscription">Inscription</Link>
             <Link to="/a-propos">À propos</Link>
+            {isAdmin && <Link to="/admin" className="admin-link">Administration</Link>}
           </nav>
         </div>
 
