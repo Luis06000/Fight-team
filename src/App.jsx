@@ -10,6 +10,8 @@ import Registration from './pages/Registration/Registration';
 import About from './pages/About/About';
 import Login from './pages/Login/Login';
 import Cours from './pages/Cours/Cours';
+import Profile from './pages/Profile/Profile';
+import Admin from './pages/Admin/Admin';
 import Preloader from './components/common/Preloader/Preloader';
 import ScrollToTop from './utils/ScrollToTop';
 import { AuthProvider } from './contexts/AuthContext';
@@ -64,6 +66,16 @@ const App = () => {
             <Route path="/cours" element={
               <MainLayout>
                 <Cours />
+              </MainLayout>
+            } />
+            <Route path="/profil" element={
+              <MainLayout>
+                <Profile />
+              </MainLayout>
+            } />
+            <Route path="/admin" element={
+              <MainLayout>
+                <Admin />
               </MainLayout>
             } />
             <Route path="*" element={
