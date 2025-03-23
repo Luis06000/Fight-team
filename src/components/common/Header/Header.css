@@ -104,6 +104,36 @@
   top: 23px;
 }
 
+.auth-icon {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 1.5rem;
+  color: #ff9900;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 153, 0, 0.1);
+}
+
+.auth-icon:hover {
+  transform: scale(1.1);
+  background: rgba(255, 153, 0, 0.2);
+}
+
+.auth-status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #4BB543;
+  font-size: 1.5rem;
+}
+
 @media screen and (max-width: 768px) {
   .header {
     justify-content: flex-start;
@@ -135,5 +165,13 @@
 
   .nav-button {
     --fs-size: 1.5em;
+  }
+
+  .auth-icon {
+    right: 10px;
+    top: 10px;
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
   }
 } 
