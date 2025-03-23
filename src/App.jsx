@@ -8,8 +8,11 @@ import MainLayout from './components/layout/MainLayout/MainLayout';
 import Home from './pages/Home/Home';
 import Registration from './pages/Registration/Registration';
 import About from './pages/About/About';
+import Login from './pages/Login/Login';
+import Cours from './pages/Cours/Cours';
 import Preloader from './components/common/Preloader/Preloader';
 import ScrollToTop from './utils/ScrollToTop';
+import { AuthProvider } from './contexts/AuthContext';
 
 // Configuration des drapeaux futurs
 const router = {
@@ -32,34 +35,46 @@ const App = () => {
   }, []);
 
   return (
-    <Router {...router}>
-      <Preloader isLoading={isLoading} />
-      <div className={`app ${isLoading ? 'no-scroll' : 'scroll'}`}>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={
-            <MainLayout>
-              <Home />
-            </MainLayout>
-          } />
-          <Route path="/inscription" element={
-            <MainLayout>
-              <Registration />
-            </MainLayout>
-          } />
-          <Route path="/a-propos" element={
-            <MainLayout>
-              <About />
-            </MainLayout>
-          } />
-          <Route path="*" element={
-            <MainLayout>
-              <Home />
-            </MainLayout>
-          } />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router {...router}>
+        <Preloader isLoading={isLoading} />
+        <div className={`app ${isLoading ? 'no-scroll' : 'scroll'}`}>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={
+              <MainLayout>
+                <Home />
+              </MainLayout>
+            } />
+            <Route path="/inscription" element={
+              <MainLayout>
+                <Registration />
+              </MainLayout>
+            } />
+            <Route path="/a-propos" element={
+              <MainLayout>
+                <About />
+              </MainLayout>
+            } />
+            <Route path="/login" element={
+              <MainLayout>
+                <Login />
+              </MainLayout>
+            } />
+            <Route path="/cours" element={
+              <MainLayout>
+                <Cours />
+              </MainLayout>
+            } />
+            <Route path="*" element={
+              <MainLayout>
+                <Home />
+              </MainLayout>
+            } />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 };
 
