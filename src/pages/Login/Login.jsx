@@ -19,7 +19,7 @@ const Login = () => {
       setError('');
       setLoading(true);
       await login(email, password);
-      navigate('/cours');
+      navigate('/');
     } catch (error) {
       console.error("Erreur de connexion:", error);
       setError('Échec de la connexion. Vérifiez vos identifiants.');
@@ -29,7 +29,7 @@ const Login = () => {
   }
 
   if (currentUser) {
-    return <Navigate to="/cours" />;
+    return <Navigate to="/" />;
   }
 
   return (
