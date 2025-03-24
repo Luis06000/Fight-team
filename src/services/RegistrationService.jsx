@@ -52,9 +52,6 @@ ${formData.motivation}`
     motivation: String(formData.motivation || '')
   };
 
-  // Log pour debug
-  console.log('Email Template:', emailTemplate);
-
   try {
     // Envoyer à Discord
     const discordResponse = await fetch(webhookURL, {

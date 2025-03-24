@@ -1,165 +1,288 @@
+/* Styles généraux de la page des cours */
 .courses-page {
-  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .courses-container {
-  max-width: 1200px;
-  margin: 2rem auto;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.loading-courses {
+  padding: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #666;
 }
 
 .courses-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 30px;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .courses-content {
+    padding: 30px;
+  }
 }
 
 /* Styles pour la liste des sports */
-.sports-list, .techniques-section {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+.sports-list {
+  width: 100%;
 }
 
-.sports-list h2, .techniques-section h2 {
+.sports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sports-header h2 {
+  font-size: 24px;
+  margin: 0;
   color: #333;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgba(255, 153, 0, 0.3);
-  text-align: center;
+}
+
+.add-sport-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-sport-button:hover {
+  background-color: #3e8e41;
 }
 
 .sports-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
-  justify-content: center;
-  margin: 0 auto;
-  max-width: 900px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
 }
 
 .sport-card {
-  background: rgba(255, 153, 0, 0.1);
-  border-radius: 10px;
-  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 15px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s;
   border: 2px solid transparent;
-  text-align: center;
 }
 
 .sport-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
 }
 
 .sport-card.selected {
-  border-color: #ff9900;
-  background: rgba(255, 153, 0, 0.2);
+  border-color: #4CAF50;
+  background-color: #f0f8f0;
 }
 
 .sport-card h3 {
   margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
   color: #333;
 }
 
 .sport-card p {
+  margin: 0;
+  font-size: 14px;
   color: #666;
-  margin-bottom: 0;
-  font-size: 0.9rem;
 }
 
-/* Styles pour la section des techniques */
+.no-sports {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+}
+
+/* Styles pour la liste des techniques */
 .techniques-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  margin-top: 20px;
 }
 
 .techniques-header {
+  margin-bottom: 20px;
+}
+
+.techniques-header h2 {
+  font-size: 22px;
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.levels-filter-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 15px;
+}
+
+@media (min-width: 768px) {
+  .levels-filter-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .levels-filter {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
-  justify-content: center;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  gap: 10px;
 }
 
 .level-pill {
-  background: white;
+  background-color: #f0f0f0;
   border-radius: 20px;
-  padding: 0.5rem 1rem;
+  padding: 6px 12px;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  font-size: 0.9rem;
-  color: #333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
 }
 
 .level-pill:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #e0e0e0;
 }
 
 .level-pill.selected {
-  background: #ff9900;
+  background-color: #4CAF50;
   color: white;
-  border-color: #ff9900;
-  font-weight: 500;
 }
 
-/* Styles pour la grille de techniques */
+.teacher-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.add-level-button,
+.add-technique-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-level-button:hover,
+.add-technique-button:hover {
+  background-color: #0b7dda;
+}
+
 .techniques-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
-  justify-content: center;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
+@media (min-width: 768px) {
+  .techniques-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+.loading-techniques {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+}
+
+.no-techniques {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+}
+
+/* Styles pour les cartes de techniques */
 .technique-card {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.2s;
 }
 
 .technique-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 
-.technique-card h3 {
-  background: rgba(255, 153, 0, 0.1);
-  padding: 1rem;
-  margin: 0;
-  color: #333;
-  text-align: center;
-  font-size: 1.2rem;
+.technique-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.technique-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .technique-level {
-  background: #ff9900;
-  color: white;
-  padding: 0.2rem 0.5rem;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 500;
+  font-size: 12px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: #666;
+}
+
+.technique-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-technique-button,
+.delete-technique-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.edit-technique-button {
+  color: #2196F3;
+}
+
+.delete-technique-button {
+  color: #f44336;
+}
+
+.edit-technique-button:hover {
+  background-color: rgba(33, 150, 243, 0.1);
+}
+
+.delete-technique-button:hover {
+  background-color: rgba(244, 67, 54, 0.1);
 }
 
 .video-container {
@@ -167,7 +290,8 @@
   padding-bottom: 56.25%; /* 16:9 aspect ratio */
   height: 0;
   overflow: hidden;
-  background: #000;
+  margin-bottom: 15px;
+  border-radius: 8px;
 }
 
 .video-container iframe {
@@ -176,30 +300,135 @@
   left: 0;
   width: 100%;
   height: 100%;
-  border: none;
+  border-radius: 8px;
 }
 
 .technique-description {
-  padding: 1rem;
-  color: #666;
   margin: 0;
+  font-size: 14px;
+  color: #666;
   line-height: 1.5;
-  flex-grow: 1;
 }
 
-/* États de chargement et messages d'erreur */
-.loading-courses, .loading-techniques,
-.no-sports, .no-techniques {
-  text-align: center;
-  padding: 2rem;
+/* Styles pour les modales */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-container {
+  background-color: white;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
   color: #666;
+  padding: 5px;
+}
+
+.close-modal:hover {
+  color: #333;
+}
+
+.modal-form {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-button,
+.submit-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-button {
+  background-color: #f0f0f0;
+  border: none;
+  color: #333;
+}
+
+.submit-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #e0e0e0;
+}
+
+.submit-button:hover {
+  background-color: #3e8e41;
 }
 
 @media screen and (max-width: 768px) {
-  .courses-page {
-    padding: 1rem;
-  }
-  
   .sports-grid, .techniques-grid {
     grid-template-columns: 1fr;
   }

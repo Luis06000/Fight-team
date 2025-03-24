@@ -16,7 +16,7 @@ const Header = () => {
 
   // Vérifier si l'utilisateur est un administrateur
   useEffect(() => {
-    async function checkAdminStatus() {
+    async function checkUserRoles() {
       if (!currentUser) {
         setIsAdmin(false);
         return;
@@ -26,18 +26,19 @@ const Header = () => {
         const userRef = doc(db, 'users', currentUser.uid);
         const userDoc = await getDoc(userRef);
 
-        if (userDoc.exists() && userDoc.data().role === 'admin') {
-          setIsAdmin(true);
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setIsAdmin(userData.role === 'admin');
         } else {
           setIsAdmin(false);
         }
       } catch (error) {
-        console.error("Erreur lors de la vérification des droits d'admin:", error);
+        console.error("Erreur lors de la vérification des droits:", error);
         setIsAdmin(false);
       }
     }
 
-    checkAdminStatus();
+    checkUserRoles();
   }, [currentUser]);
 
   useEffect(() => {
