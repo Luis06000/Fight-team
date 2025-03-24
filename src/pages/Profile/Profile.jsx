@@ -64,6 +64,12 @@ const Profile = () => {
       <PageTitle title="Mon Profil" emoji="👤" />
       
       <div className="profile-container">
+        {userData?.role && (
+          <div className="profile-role-badge">
+            {userData.role === 'admin' ? 'Administrateur' : 'Membre'}
+          </div>
+        )}
+        
         {loading ? (
           <div className="loading-profile">Chargement de votre profil...</div>
         ) : error ? (
@@ -83,9 +89,6 @@ const Profile = () => {
               <div className="profile-info">
                 <h2>{userData?.displayName || 'Utilisateur'}</h2>
                 <p className="profile-email">{userData?.email}</p>
-                {userData?.role && (
-                  <span className="profile-role">{userData.role}</span>
-                )}
               </div>
             </div>
 
