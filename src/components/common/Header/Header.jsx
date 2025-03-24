@@ -79,10 +79,12 @@ const Header = () => {
           <span className="actual-text">&nbsp;Accueil&nbsp;</span>
           <span aria-hidden="true" className="hover-text">&nbsp;Accueil&nbsp;</span>
         </Link>
-        <Link className="nav-button" to="/inscription" onClick={() => handleNavigation('/inscription')}>
-          <span className="actual-text">&nbsp;Inscription&nbsp;</span>
-          <span aria-hidden="true" className="hover-text">&nbsp;Inscription&nbsp;</span>
-        </Link>
+        {!currentUser && (
+          <Link className="nav-button" to="/inscription" onClick={() => handleNavigation('/inscription')}>
+            <span className="actual-text">&nbsp;Inscription&nbsp;</span>
+            <span aria-hidden="true" className="hover-text">&nbsp;Inscription&nbsp;</span>
+          </Link>
+        )}
         <Link className="nav-button" to="/a-propos" onClick={() => handleNavigation('/a-propos')}>
           <span className="actual-text">&nbsp;À&nbsp;propos&nbsp;</span>
           <span aria-hidden="true" className="hover-text">&nbsp;À&nbsp;propos&nbsp;</span>
