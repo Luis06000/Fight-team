@@ -43,6 +43,9 @@ const Cours = () => {
     level: ''
   });
   
+  // Ajouter un nouvel état pour le cache
+  const [sportsCache, setSportsCache] = useState({});
+  
   // Vérifier si l'utilisateur est un enseignant ou un administrateur
   useEffect(() => {
     async function checkTeacherStatus() {
@@ -78,7 +81,18 @@ const Cours = () => {
     navigate(`/cours?${params.toString()}`, { replace: true });
   }, [navigate]);
 
-  // Récupérer la liste des sports et initialiser le sport sélectionné depuis l'URL
+  // Ajouter un useCallback pour la fonction de mise en cache
+  const updateCache = useCallback((sportId, levels, techniques) => {
+    setSportsCache(prev => ({
+      ...prev,
+      [sportId]: {
+        levels,
+        techniques
+      }
+    }));
+  }, []);
+
+  // Modifier l'effet de chargement des sports
   useEffect(() => {
     async function fetchSports() {
       try {
@@ -97,6 +111,10 @@ const Cours = () => {
           if (sportFromUrl) {
             setSelectedSport(sportFromUrl);
           }
+        } else if (sportsList.length > 0 && !selectedSport) {
+          // Sélectionner le premier sport par défaut si aucun sport n'est sélectioné
+          setSelectedSport(sportsList[0]);
+          updateUrlParams(sportsList[0].id, 'all');
         }
       } catch (error) {
         console.error("Erreur lors du chargement des sports:", error);
@@ -108,92 +126,63 @@ const Cours = () => {
     if (currentUser) {
       fetchSports();
     }
-  }, [currentUser, sportParam]);
+  }, [currentUser, sportParam, selectedSport, updateUrlParams]);
 
-  // Récupérer les niveaux et toutes les techniques lorsqu'un sport est sélectionné
+  // Modifier l'effet de chargement des niveaux et techniques
   useEffect(() => {
     async function fetchLevelsAndAllTechniques() {
       if (!selectedSport) return;
       
+      // Vérifier si les données sont déjà en cache
+      if (sportsCache[selectedSport.id]) {
+        setLevels(sportsCache[selectedSport.id].levels);
+        setAllTechniques(sportsCache[selectedSport.id].techniques);
+        return;
+      }
+      
       try {
         setLoading(true);
+        setAllTechniques([]); // Réinitialiser avant le chargement
+        setFilteredTechniques([]);
+        setLevels([]);
         
-        // Récupérer les sous-collections manuellement
-        const sportRef = doc(db, 'cours', selectedSport.id);
-        const sportDoc = await getDoc(sportRef);
+        const possibleLevels = [
+          'blanc', 'jaune', 'orange', 'vert', 'bleu', 'marron', 'noir',
+          'débutant', 'intermédiaire', 'avancé', 'expert'
+        ];
         
-        let foundLevels = [];
+        const foundLevels = [];
+        const allTechniquesArray = [];
         
-        if (sportDoc.exists() && sportDoc.data().niveaux) {
-          foundLevels = sportDoc.data().niveaux;
-        } else {
-          // Liste des niveaux possibles
-          const possibleLevels = [
-            'blanc', 'jaune', 'orange', 'vert', 'bleu', 'marron', 'noir',
-            'débutant', 'intermédiaire', 'avancé', 'expert'
-          ];
-          
-          // Vérifier chaque niveau possible
-          for (const level of possibleLevels) {
-            try {
-              const levelCollection = collection(db, `cours/${selectedSport.id}/${level}`);
-              const levelDocs = await getDocs(levelCollection);
+        // Charger les niveaux d'abord
+        for (const level of possibleLevels) {
+          try {
+            const levelCollection = collection(db, `cours/${selectedSport.id}/${level}`);
+            const levelDocs = await getDocs(levelCollection);
+            
+            if (!levelDocs.empty) {
+              foundLevels.push(level);
               
-              if (!levelDocs.empty) {
-                foundLevels.push(level);
-              }
-            } catch (e) {
-              // Ignorer les erreurs
+              // Charger les techniques de ce niveau
+              levelDocs.forEach((doc) => {
+                const technique = {
+                  id: doc.id,
+                  level: level,
+                  ...doc.data()
+                };
+                allTechniquesArray.push(technique);
+              });
             }
+          } catch (e) {
+            console.error(`Erreur lors du chargement du niveau ${level}:`, e);
           }
         }
         
         setLevels(foundLevels);
-        
-        // Récupérer toutes les techniques pour tous les niveaux
-        const allTechniquesArray = [];
-        
-        for (const level of foundLevels) {
-          try {
-            const techniquesCollection = collection(db, `cours/${selectedSport.id}/${level}`);
-            const techniquesSnapshot = await getDocs(techniquesCollection);
-            
-            if (!techniquesSnapshot.empty) {
-              const techniquesList = techniquesSnapshot.docs.map(doc => ({
-                id: doc.id,
-                level: level,
-                ...doc.data()
-              }));
-              allTechniquesArray.push(...techniquesList);
-            }
-          } catch (error) {
-            console.error(`Erreur lors du chargement des techniques pour ${level}:`, error);
-          }
-        }
-        
-        // Trier les techniques par niveau
-        allTechniquesArray.sort((a, b) => {
-          const levelOrder = {
-            'blanc': 1, 'jaune': 2, 'orange': 3, 'vert': 4, 'bleu': 5, 'marron': 6, 'noir': 7,
-            'débutant': 1, 'intermédiaire': 2, 'avancé': 3, 'expert': 4
-          };
-          
-          const levelA = levelOrder[a.level] || 999;
-          const levelB = levelOrder[b.level] || 999;
-          
-          return levelA - levelB;
-        });
-        
         setAllTechniques(allTechniquesArray);
         
-        // Vérifier si le niveau dans l'URL existe pour ce sport
-        if (levelParam !== 'all' && !foundLevels.includes(levelParam)) {
-          // Si le niveau n'existe pas, réinitialiser à 'all'
-          setSelectedLevel('all');
-          updateUrlParams(selectedSport.id, 'all');
-        } else {
-          setSelectedLevel(levelParam);
-        }
+        // Mettre à jour le cache
+        updateCache(selectedSport.id, foundLevels, allTechniquesArray);
         
       } catch (error) {
         console.error("Erreur lors du chargement des niveaux et techniques:", error);
@@ -206,14 +195,11 @@ const Cours = () => {
     }
 
     fetchLevelsAndAllTechniques();
-  }, [selectedSport, levelParam, updateUrlParams]);
+  }, [selectedSport, sportsCache, updateCache]);
 
-  // Filtrer les techniques lorsque le niveau sélectionné change
+  // Modifier l'effet de filtrage des techniques
   useEffect(() => {
-    if (!allTechniques.length) {
-      setFilteredTechniques([]);
-      return;
-    }
+    if (!allTechniques) return;
     
     if (selectedLevel === 'all') {
       setFilteredTechniques(allTechniques);
@@ -223,22 +209,19 @@ const Cours = () => {
     }
   }, [selectedLevel, allTechniques]);
 
-  // Fonctions pour gérer la navigation
+  // Modifier handleSportSelect
   const handleSportSelect = (sport) => {
+    if (sport.id === selectedSport?.id) return; // Éviter le rechargement inutile
+    
     setSelectedSport(sport);
     setSelectedLevel('all');
     updateUrlParams(sport.id, 'all');
   };
 
+  // Modifier handleLevelSelect
   const handleLevelSelect = (level) => {
     setSelectedLevel(level);
     updateUrlParams(selectedSport.id, level);
-    
-    if (level === 'all') {
-      setFilteredTechniques(allTechniques);
-    } else {
-      setFilteredTechniques(allTechniques.filter(t => t.level === level));
-    }
   };
 
   // Fonction pour formater les URL YouTube
@@ -330,21 +313,6 @@ const Cours = () => {
         description: `Niveau ${newLevel.trim()} pour ${selectedSport.name}`
       });
       
-      // Mettre à jour le document du sport pour inclure le nouveau niveau
-      const sportRef = doc(db, 'cours', selectedSport.id);
-      const sportDoc = await getDoc(sportRef);
-      
-      if (sportDoc.exists()) {
-        const sportData = sportDoc.data();
-        const existingLevels = sportData.niveaux || [];
-        
-        if (!existingLevels.includes(newLevel.trim())) {
-          await updateDoc(sportRef, {
-            niveaux: [...existingLevels, newLevel.trim()]
-          });
-        }
-      }
-      
       // Rafraîchir les niveaux
       const updatedLevels = [...levels, newLevel.trim()];
       setLevels(updatedLevels);
@@ -378,6 +346,8 @@ const Cours = () => {
         createdAt: new Date()
       };
       
+      let updatedTechnique;
+      
       if (techniqueToEdit) {
         // Mise à jour d'une technique existante
         const techniqueRef = doc(db, `cours/${selectedSport.id}/${techniqueToEdit.level}`, techniqueToEdit.id);
@@ -385,17 +355,44 @@ const Cours = () => {
         if (techniqueToEdit.level === newTechnique.level) {
           // Même niveau, simple mise à jour
           await updateDoc(techniqueRef, techniqueData);
+          updatedTechnique = {
+            ...techniqueData,
+            level: newTechnique.level
+          };
         } else {
           // Changement de niveau, supprimer l'ancienne et créer une nouvelle
           await deleteDoc(techniqueRef);
           const newLevelCollection = collection(db, `cours/${selectedSport.id}/${newTechnique.level}`);
-          await addDoc(newLevelCollection, techniqueData);
+          const docRef = await addDoc(newLevelCollection, techniqueData);
+          updatedTechnique = {
+            id: docRef.id,
+            ...techniqueData,
+            level: newTechnique.level
+          };
         }
       } else {
         // Ajout d'une nouvelle technique
         const levelCollection = collection(db, `cours/${selectedSport.id}/${newTechnique.level}`);
-        await addDoc(levelCollection, techniqueData);
+        const docRef = await addDoc(levelCollection, techniqueData);
+        updatedTechnique = {
+          id: docRef.id,
+          ...techniqueData,
+          level: newTechnique.level
+        };
       }
+      
+      // Mettre à jour le cache
+      setSportsCache(prev => ({
+        ...prev,
+        [selectedSport.id]: {
+          ...prev[selectedSport.id],
+          techniques: techniqueToEdit 
+            ? prev[selectedSport.id].techniques.map(t => 
+                t.id === techniqueToEdit.id ? updatedTechnique : t
+              )
+            : [...prev[selectedSport.id].techniques, updatedTechnique]
+        }
+      }));
       
       // Rafraîchir les techniques
       const updatedTechniques = [...allTechniques];
@@ -458,17 +455,26 @@ const Cours = () => {
     try {
       setLoading(true);
       
-      // Supprimer la technique de la base de données
-      const techniqueRef = doc(db, `cours/${selectedSport.id}/${technique.level}`, technique.id);
-      await deleteDoc(techniqueRef);
+      await deleteDoc(doc(db, `cours/${selectedSport.id}/${technique.level}`, technique.id));
       
-      // Mettre à jour la liste des techniques
-      const updatedTechniques = allTechniques.filter(t => !(t.id === technique.id && t.level === technique.level));
-      setAllTechniques(updatedTechniques);
+      // Mettre à jour le cache
+      setSportsCache(prev => ({
+        ...prev,
+        [selectedSport.id]: {
+          ...prev[selectedSport.id],
+          techniques: prev[selectedSport.id].techniques.filter(
+            t => !(t.id === technique.id && t.level === technique.level)
+          )
+        }
+      }));
+      
+      setAllTechniques(prev => 
+        prev.filter(t => !(t.id === technique.id && t.level === technique.level))
+      );
       
     } catch (error) {
-      console.error("Erreur lors de la suppression de la technique:", error);
-      alert("Une erreur est survenue lors de la suppression de la technique.");
+      console.error("Erreur:", error);
+      alert("Une erreur est survenue lors de la suppression.");
     } finally {
       setLoading(false);
     }
