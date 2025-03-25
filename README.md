@@ -1,6 +1,6 @@
-# CESI Fight Team
+# Fight Team
 
-Bienvenue dans le projet **CESI Fight Team** ! Ce projet vise à créer une communauté sportive dynamique au sein du CESI, avec un accent particulier sur les sports de combat et l'initiation aux arts martiaux.
+Bienvenue dans le projet **Fight Team** ! Ce projet vise à créer une communauté sportive dynamique au sein du CESI, avec un accent particulier sur les sports de combat et l'initiation aux arts martiaux.
 
 ## Table des matières
 
@@ -11,7 +11,7 @@ Bienvenue dans le projet **CESI Fight Team** ! Ce projet vise à créer une comm
 
 ## Description
 
-Le projet **CESI Fight Team** a pour objectif de fonder une équipe sportive dédiée aux arts martiaux. Nous proposons des séances d'initiation, des événements et des supports de communication pour sensibiliser les étudiants à la pratique sportive et à la confiance en soi.
+Le projet **Fight Team** a pour objectif de fonder une équipe sportive dédiée aux arts martiaux. Nous proposons des séances d'initiation, des événements et des supports de communication pour sensibiliser les étudiants à la pratique sportive et à la confiance en soi.
 
 ## Fonctionnalités
 
@@ -22,7 +22,7 @@ Le projet **CESI Fight Team** a pour objectif de fonder une équipe sportive dé
 
 ## Site web
 
-[CESI Fight Team](https://luis06000.github.io/Fight-team/)
+[Fight Team](https://fight-team.luisfds.com/)
 
 ## Contributeur
 

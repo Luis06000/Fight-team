@@ -95,7 +95,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {currentYear} CESI Fight Team. Tous droits réservés.</p>
+        <p>&copy; {currentYear} Fight Team. Tous droits réservés.</p>
       </div>
     </footer>
   );
