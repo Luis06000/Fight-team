@@ -66,7 +66,9 @@ const Profile = () => {
       <div className="profile-container">
         {userData?.role && (
           <div className="profile-role-badge">
-            {userData.role === 'admin' ? 'Administrateur' : 'Membre'}
+            {userData.role === 'admin' ? 'Administrateur' : 
+             userData.role === 'coach' ? `Coach ${userData.coachDomain}` : 
+             'Membre'}
           </div>
         )}
         

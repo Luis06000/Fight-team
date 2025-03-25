@@ -46,10 +46,10 @@ const Cours = () => {
   // Ajouter un nouvel état pour le cache
   const [sportsCache, setSportsCache] = useState({});
   
-  // Vérifier si l'utilisateur est un enseignant ou un administrateur
+  // Vérifier les droits d'accès et d'édition
   useEffect(() => {
-    async function checkTeacherStatus() {
-      if (!currentUser) {
+    async function checkAccess() {
+      if (!currentUser || !selectedSport) {
         setIsTeacher(false);
         return;
       }
@@ -60,18 +60,30 @@ const Cours = () => {
 
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          setIsTeacher(userData.role === 'teacher' || userData.role === 'admin');
-        } else {
+          
+          // Admin peut tout faire
+          if (userData.role === 'admin') {
+            setIsTeacher(true);
+            return;
+          }
+          
+          // Coach peut éditer uniquement son sport
+          if (userData.role === 'coach') {
+            setIsTeacher(userData.coachDomain === selectedSport.id);
+            return;
+          }
+
+          // Membre ne peut rien éditer
           setIsTeacher(false);
         }
       } catch (error) {
-        console.error("Erreur lors de la vérification des droits d'enseignant:", error);
+        console.error("Erreur lors de la vérification des droits:", error);
         setIsTeacher(false);
       }
     }
 
-    checkTeacherStatus();
-  }, [currentUser]);
+    checkAccess();
+  }, [currentUser, selectedSport]);
 
   // Utiliser useCallback pour la fonction updateUrlParams
   const updateUrlParams = useCallback((sportId, level) => {
@@ -92,41 +104,64 @@ const Cours = () => {
     }));
   }, []);
 
-  // Modifier l'effet de chargement des sports
+  // Effet pour charger les sports accessibles
   useEffect(() => {
-    async function fetchSports() {
+    async function loadSports() {
+      if (!currentUser) return;
+
       try {
+        setLoading(true);
+        
+        // Charger les données de l'utilisateur
+        const userRef = doc(db, 'users', currentUser.uid);
+        const userDoc = await getDoc(userRef);
+        const userData = userDoc.data();
+
+        // Charger tous les sports depuis Firestore
         const sportsCollection = collection(db, 'cours');
         const sportsSnapshot = await getDocs(sportsCollection);
-        const sportsList = sportsSnapshot.docs.map(doc => ({
+        const allSports = sportsSnapshot.docs.map(doc => ({
           id: doc.id,
           name: doc.id.charAt(0).toUpperCase() + doc.id.slice(1),
           ...doc.data()
         }));
-        setSports(sportsList);
-        
-        // Si un sport est spécifié dans l'URL, le sélectionner
+
+        // Filtrer les sports selon le rôle
+        let accessibleSports;
+        if (userData.role === 'admin' || userData.role === 'coach') {
+          // Admin et coach voient tous les sports
+          accessibleSports = allSports;
+        } else {
+          // Membre ne voit que ses sports inscrits
+          const userSports = userData.sports || [];
+          accessibleSports = allSports.filter(sport => userSports.includes(sport.id));
+        }
+
+        setSports(accessibleSports);
+
+        // Gérer la sélection initiale du sport
         if (sportParam) {
-          const sportFromUrl = sportsList.find(sport => sport.id === sportParam);
+          const sportFromUrl = accessibleSports.find(sport => sport.id === sportParam);
           if (sportFromUrl) {
             setSelectedSport(sportFromUrl);
+          } else if (accessibleSports.length > 0) {
+            setSelectedSport(accessibleSports[0]);
+            updateUrlParams(accessibleSports[0].id, levelParam);
           }
-        } else if (sportsList.length > 0 && !selectedSport) {
-          // Sélectionner le premier sport par défaut si aucun sport n'est sélectioné
-          setSelectedSport(sportsList[0]);
-          updateUrlParams(sportsList[0].id, 'all');
+        } else if (accessibleSports.length > 0 && !selectedSport) {
+          setSelectedSport(accessibleSports[0]);
+          updateUrlParams(accessibleSports[0].id, levelParam);
         }
       } catch (error) {
-        console.error("Erreur lors du chargement des sports:", error);
+        console.error('Erreur lors du chargement des sports:', error);
       } finally {
         setLoading(false);
       }
     }
 
-    if (currentUser) {
-      fetchSports();
-    }
-  }, [currentUser, sportParam, selectedSport, updateUrlParams]);
+    loadSports();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser, sportParam]);
 
   // Modifier l'effet de chargement des niveaux et techniques
   useEffect(() => {
@@ -209,13 +244,13 @@ const Cours = () => {
     }
   }, [selectedLevel, allTechniques]);
 
-  // Modifier handleSportSelect
+  // Modifier handleSportSelect pour inclure la vérification d'accès
   const handleSportSelect = (sport) => {
-    if (sport.id === selectedSport?.id) return; // Éviter le rechargement inutile
+    if (sport.id === selectedSport?.id) return;
     
     setSelectedSport(sport);
     setSelectedLevel('all');
-    updateUrlParams(sport.id, 'all');
+    updateUrlParams(sport.id, levelParam);
   };
 
   // Modifier handleLevelSelect

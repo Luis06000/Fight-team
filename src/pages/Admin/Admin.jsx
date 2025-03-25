@@ -46,12 +46,14 @@ const Admin = () => {
     password: '',
     displayName: '',
     role: 'member',
-    sports: []
+    sports: [],
+    coachDomain: ''
   });
   const [editUser, setEditUser] = useState({
     displayName: '',
     role: 'member',
-    sports: []
+    sports: [],
+    coachDomain: ''
   });
   const [availableSports, setAvailableSports] = useState([]);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -156,57 +158,50 @@ const Admin = () => {
   };
 
   // Créer un nouvel utilisateur
-  const handleCreateUser = async (e) => {
+  const handleAddUser = async (e) => {
     e.preventDefault();
-    
-    if (!newUser.email || !newUser.password || !newUser.displayName) {
-      setError("Veuillez remplir tous les champs obligatoires.");
-      return;
-    }
+    setLoading(true);
 
     try {
-      setLoading(true);
-      setError('');
-      
-      // Créer l'utilisateur dans Firebase Auth avec l'instance secondaire
-      const userCredential = await createUserWithEmailAndPassword(
-        secondaryAuth, 
-        newUser.email, 
-        newUser.password
-      );
-      
-      // Créer le document utilisateur dans Firestore
-      await setDoc(doc(db, "users", userCredential.user.uid), {
-        displayName: newUser.displayName,
+      // Créer l'utilisateur dans Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(secondaryAuth, newUser.email, newUser.password);
+      const user = userCredential.user;
+
+      // Préparer les données utilisateur pour Firestore
+      const userData = {
         email: newUser.email,
+        displayName: newUser.displayName,
         role: newUser.role,
-        sports: newUser.sports,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
-      });
-      
-      // Déconnecter l'utilisateur de l'instance secondaire
-      await secondaryAuth.signOut();
-      
-      // Réinitialiser le formulaire et fermer la modal
+        sports: newUser.sports || [],
+        createdAt: serverTimestamp()
+      };
+
+      // Ajouter coachDomain si l'utilisateur est un coach
+      if (newUser.role === 'coach') {
+        if (!newUser.coachDomain) {
+          throw new Error('Un coach doit avoir un sport assigné');
+        }
+        userData.coachDomain = newUser.coachDomain;
+      }
+
+      // Sauvegarder dans Firestore
+      await setDoc(doc(db, 'users', user.uid), userData);
+
+      // Réinitialiser le formulaire
       setNewUser({
         email: '',
         password: '',
         displayName: '',
         role: 'member',
-        sports: []
+        sports: [],
+        coachDomain: ''
       });
-      setShowAddUserModal(false);
-      
-      // Rafraîchir la liste des utilisateurs
-      fetchUsers();
+
+      closeAddUserModal();
+      fetchUsers(); // Rafraîchir la liste des utilisateurs
     } catch (error) {
-      console.error("Erreur lors de la création de l'utilisateur:", error);
-      if (error.code === 'auth/email-already-in-use') {
-        setError("Cet email est déjà utilisé par un autre compte.");
-      } else {
-        setError("Une erreur est survenue lors de la création de l'utilisateur.");
-      }
+      console.error('Erreur lors de la création de l\'utilisateur:', error);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -327,7 +322,8 @@ const Admin = () => {
       password: '',
       displayName: '',
       role: 'member',
-      sports: []
+      sports: [],
+      coachDomain: ''
     });
     setError('');
     setShowAddUserModal(true);
@@ -341,7 +337,8 @@ const Admin = () => {
       password: '',
       displayName: '',
       role: 'member',
-      sports: []
+      sports: [],
+      coachDomain: ''
     });
     setError('');
   };
@@ -405,7 +402,7 @@ const Admin = () => {
                         <tr key={user.id}>
                           <td>{user.displayName}</td>
                           <td>{user.email}</td>
-                          <td>{user.role === 'admin' ? 'Admin' : 'Membre'}</td>
+                          <td>{user.role === 'admin' ? 'Admin' : user.role === 'coach' ? 'Coach' : 'Membre'}</td>
                           <td>
                             {user.sports && user.sports.length > 0 ? (
                               <div className="sport-bubble-container">
@@ -469,7 +466,7 @@ const Admin = () => {
             <div className="modal-content">
               {error && <div className="modal-error">{error}</div>}
               
-              <form onSubmit={handleCreateUser} className="add-user-form">
+              <form onSubmit={handleAddUser} className="add-user-form">
                 <div className="form-group">
                   <label htmlFor="displayName">Nom complet*</label>
                   <input
@@ -539,6 +536,26 @@ const Admin = () => {
                     ))}
                   </select>
                 </div>
+                
+                {newUser.role === 'coach' && (
+                  <div className="form-group">
+                    <label htmlFor="coachDomain">Domaine d'expertise*</label>
+                    <select
+                      id="coachDomain"
+                      name="coachDomain"
+                      value={newUser.coachDomain}
+                      onChange={handleNewUserChange}
+                      required
+                    >
+                      <option value="">Sélectionner un sport</option>
+                      {availableSports.map(sport => (
+                        <option key={sport.id} value={sport.id}>
+                          {sport.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
                 
                 <div className="modal-actions">
                   <button 
