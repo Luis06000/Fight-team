@@ -517,6 +517,7 @@ const Admin = () => {
                   >
                     <option value="member">Membre</option>
                     <option value="admin">Administrateur</option>
+                    <option value="coach">Coach</option>
                   </select>
                 </div>
                 
@@ -663,6 +664,7 @@ const Admin = () => {
                   >
                     <option value="member">Membre</option>
                     <option value="admin">Administrateur</option>
+                    <option value="coach">Coach</option>
                   </select>
                   {userToEdit.id === currentUser.uid && (
                     <p className="input-help">Vous ne pouvez pas modifier votre propre rôle.</p>
